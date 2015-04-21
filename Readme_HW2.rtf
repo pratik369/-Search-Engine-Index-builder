@@ -1,0 +1,79 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf190
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww17280\viewh10720\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\b\fs24 \cf0 Inverted Index Builder.\
+Author: Vivek Desai and Pratik Patel\
+\
+\
+Introduction:
+\b0 \
+We are trying to build an inverted index on the NZ series of datasets provided. The code is written in Python. It reads a set of gzipped index and data files from the disk ungzips in main memory and creates an inverted index on the dataset. It also creates Lexicon which provides mapping between primary memory and secondary memory structures. Also we created Url Table which provides mapping between Doc id and Url.\
+\
+\
+
+\b Working:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b0 \cf0 1. We get the list of Index and Data files from the directory and save it in their respective lists.\
+2. We generate Url table from the all the Index document in a single go.\
+3. Then to parse the document we first check if its status is ok(200) or not. If its ok then only we parse the document.\
+4. After removing the stop words using NLTK Library, we tokenize the document into words and save it in dictionary.\
+5. After tokenizing we search the cleaned document for the its occurrence and then we save it into temp document along with its frequency and position.\
+6. As soon as we find 150000 words in temp file, we create intermediate index file from temp file, which is sorted using unix sort command. After creation of intermediate index we remove the temp file.\
+7. After parsing of all the documents, numbers of intermediate index files are created. To merge them we use M-Way Merge sort using Heap Queue.\
+8. After creation of the the index file, we build the lexicon structure from inverted index file which provides mapping to secondary memory index.\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 Statistics:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b0 \cf0 \
+NZ2\
+		Number of Temp Indexes : 68\
+		Size of Lexicon : 5.4 MB\
+		Size of URL list : 3 MB\
+		Number Of Words in Lexicon : 290960\
+		Number of Entries in URL list : 48236\
+		Total Time Taken : 11 Minutes\
+\
+\
+We couldn\'92t run it whole whole nz data because it would take more that 10-12hrs to complete the process. We used NLTK library which is same as beautiful soup for getting the words, which was the most time consuming process. Hence, we couldn\'92t run it on whole Data Set.\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 How to run it:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b0 \cf0 \
+From Terminal Enter: python main.py\
+- No arguments are supposed to be given. \
+\
+NOTE the folder containing all the data and index files must be present in the root directory with the same names . \
+	That is for nz , we must have a folder in root directory called nz with all data and index files present in it . Similarly for nz10 and nz2\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 Possible Improvements:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b0 \cf0 \
+1. Compression , compressing the docID will add a definite improvement , we plan to do this in the next assignment.\
+2. Multi-Threading , indexing the files or at least performing some of the tasks parallel will add a huge performance improvement , \
+because we noticed that the program was using only a part of the CPU.\
+3. We also noticed that parsing the documents can be improved. We noticed the parsing document using NLTK library was most time consuming and hence our program takes so long to create inverted index. We would like to improve parsing in our next assignment.\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 Conclusion:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b0 \cf0 \
+We will be modifying the index builder heavily for the third assignment to make it quicker and parser to work more faster so that we get the results much quicker. We think we have developed a reasonably modular code that can be changed and extended without disturbing other areas of the code. }
